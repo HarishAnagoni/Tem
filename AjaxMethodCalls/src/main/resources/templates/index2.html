@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+	<script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+	<script>
+		
+		$(document).ready(function(){
+			
+			$("#dropdown").on("change",function(e){
+				$.ajax({
+					type:"get",
+					url:"country",
+					data:{country:$("#dropdown").val()},
+					success:function(data){alert(data);$("#dropdownresult").html(data);},
+					error:function(e){alert(e)}
+				});
+			});
+			
+			$("#button").click(function(e){				
+				$.ajax({
+									type:"get",
+									url:"msg1",
+									data:{	name:$("#name").val()},
+									success:function(d){alert(d);
+										$("#result").html(d);
+											},
+									error:function(e){$("#result").text(e);}
+							});							
+					
+			});
+		});
+		
+		
+	</script>
+</head>
+<body>
+    <h1>Welcome,!</h1>
+	<!--<form th:action="@{/msg1}">-->
+		<input type="text" name="name" id="name"/>
+		<button type="submit" id="button">Get Data</button>
+	<!--</form>-->
+	<div><span th:text="${name}" id="result"></span></div>
+	
+	<hr/>
+	<select id="dropdown">
+		<option>-select-</option>
+		<option>India</option>
+		<option>Pakistan</option>
+		<option>Switzerland</option>
+	</select><hr>
+	<div id="dropdownresult"></div>
+</body>
+</html>
